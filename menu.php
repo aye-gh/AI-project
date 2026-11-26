@@ -1,0 +1,7 @@
+<?php require 'config.php'; $products = $pdo->query("SELECT * FROM products ORDER BY category, name")->fetchAll(); ?>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Our Menu | Sweet Bite</title><link rel="stylesheet" href="style.css"></head><body>
+<header class="site-header"><a class="logo" href="index.php">🍰 Sweet Bite</a><nav><a href="index.php">Home</a><a href="menu.php">Our Menu</a><a href="order.php">Order Now</a></nav></header>
+<section class="page-intro"><p class="eyebrow">A treat for everyone</p><h1>Our delicious menu</h1><p>Choose your favourite and place an order.</p></section>
+<main class="section"><div class="product-grid">
+<?php foreach ($products as $p): ?><article class="product-card"><img src="<?= htmlspecialchars($p['image']) ?>" alt="<?= htmlspecialchars($p['name']) ?>"><div class="product-info"><span class="category"><?= htmlspecialchars($p['category']) ?></span><h3><?= htmlspecialchars($p['name']) ?></h3><p><?= htmlspecialchars($p['description']) ?></p><strong>Rs. <?= number_format((float)$p['price'], 0) ?></strong><a class="text-link" href="order.php?product=<?= (int)$p['id'] ?>">Order this →</a></div></article><?php endforeach; ?>
+</div></main><footer>© <?= date('Y') ?> Sweet Bite Bakery</footer></body></html>
